@@ -1,0 +1,8 @@
+# Diretório interno de cache do Godot
+.godot/
+
+# Logs
+*.log
+
+# Cache de scripts
+*.translation
