@@ -364,9 +364,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yaehf")
 }],
-"loop": false,
+"loop": true,
 "name": &"dead",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -541,8 +541,9 @@ size = Vector2(5, 73)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6nm46"]
 size = Vector2(26.5, 21)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tjdhl"]
-size = Vector2(23, 20)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tjdhl"]
+radius = 3.0
+height = 68.0
 
 [node name="player" type="CharacterBody2D"]
 z_index = 1
@@ -554,7 +555,9 @@ script = ExtResource("1_merdl")
 position = Vector2(1.00002, 2)
 scale = Vector2(1.0332, 1.06738)
 sprite_frames = SubResource("SpriteFrames_kdgjc")
-animation = &"idle"
+animation = &"dead"
+frame = 4
+frame_progress = 0.451386
 
 [node name="collision2" type="CollisionShape2D" parent="."]
 texture_filter = 1
@@ -573,8 +576,6 @@ shape = SubResource("RectangleShape2D_6nm46")
 [node name="HitBox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(-4.5, 60)
-shape = SubResource("RectangleShape2D_tjdhl")
+position = Vector2(-4, 34)
+shape = SubResource("CapsuleShape2D_tjdhl")
 debug_color = Color(0.935438, 0.142225, 0.527814, 0.42)
-
-[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
