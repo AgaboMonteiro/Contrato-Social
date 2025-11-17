@@ -1,0 +1,61 @@
+# Godot-specific folders
+.import/
+.export/
+
+# User-specific editor settings
+.editor_settings-3.tres
+.editor_settings-4.tres
+
+# Local Godot configuration (auto-generated)
+.godot/
+
+# Exported builds
+export_presets.cfg
+*.exe
+*.apk
+*.zip
+*.pck
+*.dmg
+*.app
+*.x86_64
+*.wasm
+*.html
+*.js
+
+# Crash logs and temporary files
+*.tmp
+*.log
+*.translation
+*.mo
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# VSCode / JetBrains / other IDEs
+.vscode/
+.idea/
+*.code-workspace
+
+# Backup files (Godot or editor)
+*.old
+*.bak
+
+# Build artifacts (in case of C# or GDNative)
+.mono/
+bin/
+obj/
+*.dll
+*.so
+*.a
+*.lib
+*.exp
+*.pdb
+*.idb
+*.sln
+*.csproj
+*.godot/mono/
+
+# If you use Rider or Visual Studio Code with C#
+.vs/
