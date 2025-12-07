@@ -19,6 +19,8 @@ var direction = 1
 func _ready() -> void:
 	go_to_walk_state()
 
+
+
 func _physics_process(delta: float) -> void:
 
 	if not is_on_floor():

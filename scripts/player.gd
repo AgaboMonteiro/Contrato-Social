@@ -7,8 +7,6 @@ enum PlayerState {
 	RUN,
 	JUMP,
 	FALL,
-	ATTACK,
-	HURT,
 	DEAD
 }
 
@@ -55,10 +53,6 @@ func _physics_process(delta: float) -> void:
 			jump_state(delta, holding_run)
 		PlayerState.FALL:
 			fall_state(delta, holding_run)
-		PlayerState.ATTACK:
-			attack_state(delta, holding_run)
-		PlayerState.HURT:
-			hurt_state(delta)
 
 	# aplicar movimento final
 	move_and_slide()
@@ -85,10 +79,6 @@ func idle_state(delta: float, holding_run: bool) -> void:
 		go_to_jump_state()
 		return
 
-	if Input.is_action_just_pressed("ui_attack"):
-		go_to_attack_state()
-		return
-
 func go_to_walk_state() -> void:
 	state = PlayerState.WALK
 	anim.play("walk")
@@ -113,9 +103,6 @@ func walk_state(delta: float, holding_run: bool) -> void:
 		go_to_fall_state()
 		return
 
-	if Input.is_action_just_pressed("ui_attack"):
-		go_to_attack_state()
-		return
 
 func go_to_run_state() -> void:
 	state = PlayerState.RUN
@@ -141,9 +128,7 @@ func run_state(delta: float, holding_run: bool) -> void:
 		go_to_fall_state()
 		return
 
-	if Input.is_action_just_pressed("ui_attack"):
-		go_to_attack_state()
-		return
+
 
 # -------------------- Pulo --------------------
 
@@ -199,49 +184,10 @@ func fall_state(delta: float, holding_run: bool) -> void:
 			go_to_walk_state()
 		return
 
-# -------------------- Ataque --------------------
-
-func go_to_attack_state() -> void:
-	if state == PlayerState.ATTACK:
-		return
-	state = PlayerState.ATTACK
-	is_attacking = true
-	anim.play("attack1")
-	attack_timeout()
-
-func attack_state(delta: float, holding_run: bool) -> void:
-	apply_gravity(delta)
-	# mantém controle horizontal leve
-	ground_move(holding_run)
-
-func attack_timeout() -> void:
-	# duração do ataque (ajuste conforme sua animação)
-	await get_tree().create_timer(0.35).timeout
-
-	if is_on_floor():
-		if direction == 0:
-			go_to_idle_state()
-		else:
-			go_to_walk_state()
-	else:
-		go_to_fall_state()
-	
-	
 
 # -------------------- Dano / Morte --------------------
 
-func go_to_hurt_state() -> void:
-	if state == PlayerState.HURT or state == PlayerState.DEAD:
-		return
-	state = PlayerState.HURT
-	anim.play("hurt")
-	velocity = Vector2.ZERO
 
-	# tempo de invencibilidade / animação de hit
-	await get_tree().create_timer(0.8).timeout
-
-	# depois do hurt, vai para morto
-	go_to_dead_state()
 
 func hurt_state(_delta: float) -> void:
 	apply_gravity(_delta)

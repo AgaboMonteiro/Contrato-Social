@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://cowt0jajweowp"]
+
+[ext_resource type="VideoStream" uid="uid://cgi0p20r3muy3" path="res://Assets/Discurso_para_multidão_com_bandeiras.ogv" id="1_47ss6"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("1_47ss6")
+autoplay = true
+expand = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PARABENS
+VOCÊ É O NOVO PRESIDENTE DO BRASIL"
+horizontal_alignment = 1

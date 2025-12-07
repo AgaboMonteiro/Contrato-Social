@@ -17,4 +17,7 @@ func reiniciar_fase():
 
 func _on_reiniciar_jogo_timeout() -> void:
 	get_tree().reload_current_scene()
-	
+
+func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		get_tree().change_scene_to_file("res://Scenes/FimJogo.tscn")

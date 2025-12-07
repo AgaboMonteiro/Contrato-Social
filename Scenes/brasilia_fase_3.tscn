@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://bhs25dd54d8bn"]
+[gd_scene load_steps=19 format=4 uid="uid://bhs25dd54d8bn"]
 
 [ext_resource type="Texture2D" uid="uid://yj82lko5efkx" path="res://Assets/04 - Brasilia/GandalfHardcore City Tiles/Stones.png" id="1_bqygv"]
 [ext_resource type="Script" uid="uid://dlrmygqbi86b6" path="res://scripts/brasilia_fase_3.gd" id="1_xybix"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://nowhgqcmxphg" path="res://entities/politico_b.tscn" id="11_vutku"]
 [ext_resource type="Script" uid="uid://dyak4vt3aovg5" path="res://scripts/politico_b.gd" id="12_osu56"]
 [ext_resource type="PackedScene" uid="uid://gutsujo4i1yw" path="res://entities/moeda.tscn" id="13_ruhpm"]
+[ext_resource type="PackedScene" uid="uid://biq88bly7jvqs" path="res://entities/portal_3.tscn" id="14_w7m5b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jhkwo"]
 texture = ExtResource("1_bqygv")
@@ -763,7 +764,7 @@ tile_map_data = PackedByteArray("AAANAAsAAAAMAAIAAAANAAwAAAAMAAMAAAAOAAsAAAANAAI
 tile_set = SubResource("TileSet_q7p3i")
 
 [node name="player" parent="." instance=ExtResource("3_xybix")]
-position = Vector2(24, 202)
+position = Vector2(11.0055, 186.689)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -771,7 +772,7 @@ position = Vector2(24, 202)
 motion_scale = Vector2(0, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(326, 149)
+position = Vector2(325, 160)
 scale = Vector2(0.662598, 0.688879)
 texture = ExtResource("4_ae6nc")
 
@@ -848,5 +849,8 @@ position = Vector2(5475, 232)
 
 [node name="moeda10" parent="." instance=ExtResource("13_ruhpm")]
 position = Vector2(7131, 314)
+
+[node name="portal_3" parent="." instance=ExtResource("14_w7m5b")]
+position = Vector2(7237, 271)
 
 [connection signal="timeout" from="reiniciar_jogo" to="." method="_on_reiniciar_jogo_timeout"]
