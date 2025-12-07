@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://djjghqafkpe3y"]
+[gd_scene load_steps=83 format=3 uid="uid://djjghqafkpe3y"]
 
 [ext_resource type="Script" uid="uid://dsfjx2vt8oum2" path="res://scripts/player.gd" id="1_merdl"]
 [ext_resource type="Texture2D" uid="uid://flsgtmj057s4" path="res://Assets/01 - Personagens/Principal/Gangsters_2/Dead.png" id="2_6nm46"]
@@ -304,7 +304,7 @@ animations = [{
 "duration": 0.5,
 "texture": SubResource("AtlasTexture_dp3pk")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack1",
 "speed": 6.0
 }, {
@@ -536,10 +536,13 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q0i8f"]
-size = Vector2(2.25, 46.5)
+size = Vector2(4.5, 73)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6nm46"]
 size = Vector2(26.5, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tjdhl"]
+size = Vector2(23, 13)
 
 [node name="player" type="CharacterBody2D"]
 z_index = 1
@@ -550,17 +553,32 @@ script = ExtResource("1_merdl")
 scale = Vector2(1.0332, 1.06738)
 sprite_frames = SubResource("SpriteFrames_kdgjc")
 animation = &"idle"
-frame_progress = 0.577297
 
 [node name="collision2" type="CollisionShape2D" parent="."]
-visibility_layer = 5
 texture_filter = 1
-position = Vector2(-2.875, 45.25)
+position = Vector2(-4, 32)
 shape = SubResource("RectangleShape2D_q0i8f")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(2, 5)
+limit_left = 0
+limit_bottom = 2000
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3, 58)
 shape = SubResource("RectangleShape2D_6nm46")
 
-[node name="remote" type="RemoteTransform2D" parent="."]
+[node name="HitBox" type="Area2D" parent="."]
 position = Vector2(-2, 61)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-2.5, -1.50001)
+shape = SubResource("RectangleShape2D_tjdhl")
+debug_color = Color(0.935438, 0.142225, 0.527814, 0.42)
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

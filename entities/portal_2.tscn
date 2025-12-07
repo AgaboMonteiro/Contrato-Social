@@ -1,0 +1,65 @@
+[gd_scene load_steps=13 format=3 uid="uid://c3fdhq0oxmloh"]
+
+[ext_resource type="Texture2D" uid="uid://bvxjc8iiy8ejy" path="res://Assets/Aulas Professor/portal/frame-1.png" id="1_1tnin"]
+[ext_resource type="Script" uid="uid://m7drv4np0s5g" path="res://scripts/portal_2.gd" id="1_hwqv7"]
+[ext_resource type="Texture2D" uid="uid://cmf7rlwrlu7wq" path="res://Assets/Aulas Professor/portal/frame-2.png" id="2_hwqv7"]
+[ext_resource type="Texture2D" uid="uid://blj3hn6j37l1d" path="res://Assets/Aulas Professor/portal/frame-3.png" id="3_6lpa6"]
+[ext_resource type="Texture2D" uid="uid://py62lr2cvgyi" path="res://Assets/Aulas Professor/portal/frame-4.png" id="4_qq0eq"]
+[ext_resource type="Texture2D" uid="uid://d1aaa4ca8qqco" path="res://Assets/Aulas Professor/portal/frame-5.png" id="5_mpe3d"]
+[ext_resource type="Texture2D" uid="uid://63mn4b125c45" path="res://Assets/Aulas Professor/portal/frame-6.png" id="6_aeusg"]
+[ext_resource type="Texture2D" uid="uid://dvsee3n15ae48" path="res://Assets/Aulas Professor/portal/frame-7.png" id="7_frlj8"]
+[ext_resource type="Texture2D" uid="uid://b3jpuwp1m1vc7" path="res://Assets/Aulas Professor/portal/frame-8.png" id="8_xpc53"]
+[ext_resource type="Texture2D" uid="uid://demmndo80yb6c" path="res://Assets/Aulas Professor/portal/frame-9.png" id="9_dwerb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kb0vs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1tnin")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_hwqv7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6lpa6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qq0eq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mpe3d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_aeusg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_frlj8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_xpc53")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_dwerb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_350q5"]
+height = 124.0
+
+[node name="portal_2" type="Area2D"]
+scale = Vector2(0.3, 0.3)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_hwqv7")
+
+[node name="anim" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kb0vs")
+autoplay = "default"
+frame = 3
+frame_progress = 0.40186
+
+[node name="colisao" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_350q5")

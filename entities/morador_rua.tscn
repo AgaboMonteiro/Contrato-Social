@@ -1,0 +1,174 @@
+[gd_scene load_steps=24 format=3 uid="uid://bydcoxgcca4x2"]
+
+[ext_resource type="Script" uid="uid://cvjrv0osagexa" path="res://scripts/politico_L.gd" id="1_sx6xt"]
+[ext_resource type="Texture2D" uid="uid://cc1h8bj6otxjm" path="res://Assets/01 - Personagens/mc Latrocinio/mc_latrocinio/Attack.png" id="2_28kmt"]
+[ext_resource type="Texture2D" uid="uid://b5b7qvqbk7gki" path="res://Assets/01 - Personagens/Indio/Hurt.png" id="3_fs7hu"]
+[ext_resource type="Texture2D" uid="uid://dssw750elfr3u" path="res://Assets/01 - Personagens/Noia/Zombie Man/Walk.png" id="4_sx6xt"]
+[ext_resource type="PackedScene" uid="uid://brotktrp3ypbw" path="res://entities/dano_inimigo.tscn" id="5_crkdv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qwod"]
+atlas = ExtResource("2_28kmt")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c427d"]
+atlas = ExtResource("2_28kmt")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ggcs"]
+atlas = ExtResource("2_28kmt")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ah3m8"]
+atlas = ExtResource("2_28kmt")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lypl3"]
+atlas = ExtResource("3_fs7hu")
+region = Rect2(0, 0, 341, 290)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckv5l"]
+atlas = ExtResource("3_fs7hu")
+region = Rect2(682, 0, 341, 290)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28kmt"]
+atlas = ExtResource("4_sx6xt")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fs7hu"]
+atlas = ExtResource("4_sx6xt")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohxmv"]
+atlas = ExtResource("4_sx6xt")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_crkdv"]
+atlas = ExtResource("4_sx6xt")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5e3e0"]
+atlas = ExtResource("4_sx6xt")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0vh7p"]
+atlas = ExtResource("4_sx6xt")
+region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xrl0"]
+atlas = ExtResource("4_sx6xt")
+region = Rect2(576, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3565e"]
+atlas = ExtResource("4_sx6xt")
+region = Rect2(672, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q4j3c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0qwod")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c427d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ggcs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ah3m8")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lypl3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ckv5l")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28kmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fs7hu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ohxmv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crkdv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5e3e0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0vh7p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xrl0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3565e")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wu3dq"]
+size = Vector2(10, 48.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nmg4m"]
+size = Vector2(20, 49.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lypl3"]
+size = Vector2(19, 3.5)
+
+[node name="politico" type="CharacterBody2D" groups=["inimigos"]]
+position = Vector2(20, 301)
+collision_layer = 4
+script = ExtResource("1_sx6xt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(6, 2)
+scale = Vector2(1.18766, 1.13672)
+sprite_frames = SubResource("SpriteFrames_q4j3c")
+animation = &"walk"
+frame_progress = 0.434567
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 32.375)
+shape = SubResource("RectangleShape2D_wu3dq")
+
+[node name="hitbox" type="Area2D" parent="."]
+position = Vector2(-1, 0)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(13, 31)
+shape = SubResource("RectangleShape2D_nmg4m")
+debug_color = Color(0.981867, 0, 0.367278, 0.42)
+
+[node name="WalkDetector" type="RayCast2D" parent="."]
+position = Vector2(7, 55)
+target_position = Vector2(10, 0)
+
+[node name="GroundDetector" type="RayCast2D" parent="."]
+position = Vector2(14, 34)
+target_position = Vector2(0, 24)
+
+[node name="dano_inimigo" parent="." instance=ExtResource("5_crkdv")]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dano_inimigo"]
+position = Vector2(15, -14)
+shape = SubResource("RectangleShape2D_lypl3")

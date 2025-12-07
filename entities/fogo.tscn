@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://cgjbogk6ol0ng"]
+
+[ext_resource type="Texture2D" uid="uid://drvpvia6447ye" path="res://Assets/02 - Floresta Amazonica/Fires/Pixel Fire Asset Pack Colored/fire asset yellow/Group 4 - 5/Group 4 - 5.png" id="1_tte5b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0iwno"]
+atlas = ExtResource("1_tte5b")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gww21"]
+atlas = ExtResource("1_tte5b")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqsh7"]
+atlas = ExtResource("1_tte5b")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_beve5"]
+atlas = ExtResource("1_tte5b")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xefaw"]
+atlas = ExtResource("1_tte5b")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2f0u0"]
+atlas = ExtResource("1_tte5b")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8els"]
+atlas = ExtResource("1_tte5b")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwdcr"]
+atlas = ExtResource("1_tte5b")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nu20b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0iwno")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gww21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqsh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_beve5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xefaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2f0u0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8els")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fwdcr")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[node name="fogo" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(33, 36.5)
+scale = Vector2(3.0625, 3.28125)
+sprite_frames = SubResource("SpriteFrames_nu20b")
+animation = &"idle"
+frame_progress = 0.745237

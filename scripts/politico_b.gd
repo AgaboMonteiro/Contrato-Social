@@ -1,0 +1,54 @@
+extends CharacterBody2D
+
+enum FazendeiroState{
+	walk,
+	dead
+}
+
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var hitbox: Area2D = $hitbox
+@onready var walk_detector: RayCast2D = $WalkDetector   # <- detector de parede
+@onready var ground_detector: RayCast2D = $GroundDetector
+
+
+const SPEED = 50.0
+
+var status : FazendeiroState
+var direction = 1
+
+func _ready() -> void:
+	go_to_walk_state()
+
+func _physics_process(delta: float) -> void:
+
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	match status:
+		FazendeiroState.walk:
+			walk_state(delta)
+		FazendeiroState.dead:
+			dead_state(delta)
+
+	move_and_slide()
+
+func go_to_walk_state():
+	status = FazendeiroState.walk
+	anim.play("walk")
+
+func walk_state(_delta):
+	velocity.x = SPEED * direction
+
+	# VERIFICAÇÃO CORRETA
+	if walk_detector.is_colliding():
+		scale.x *= -1
+		direction *= -1
+
+	if not ground_detector.is_colliding():
+		scale.x *= -1
+		direction *= -1
+		
+		
+	
+func dead_state(_delta):
+	pass

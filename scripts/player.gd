@@ -13,82 +13,69 @@ enum PlayerState {
 }
 
 @onready var anim: AnimatedSprite2D = $anim
+@onready var remote = $remote as RemoteTransform2D
 
-# Configurações
-const SPEED = 100.0
-const RUN_SPEED = 200.0
-const JUMP_VELOCITY = -500.0
+# Configurações (ajuste ao gosto)
+const SPEED := 150.0
+const RUN_SPEED := 220.0
+const JUMP_VELOCITY := -480.0
+const AIR_ACCEL := 1500.0
 
-# Velocidade turbo do pulo
-const JUMP_HORIZONTAL_MULTIPLIER = 1   # quanto maior, mais rápido no ar
-const JUMP_VERTICAL_MULTIPLIER = 1      # pulo mais forte ao correr
-const AIR_ACCEL = 100                  # quão rápido acelera no ar
+# Tempo de espera antes de executar lógica de morte
+const DEATH_WAIT := 1.0
 
 var state: PlayerState = PlayerState.IDLE
-var is_attacking = false
+var is_attacking := false
 var direction := 0.0
 
-
 func _ready() -> void:
-	go_to_idle_state()
-
+	add_to_group("player")
 
 func _physics_process(delta: float) -> void:
-
-	# SE ESTIVER MORTO — nada funciona
+	# Se estiver morto, apenas aplique gravidade e deixe cair
 	if state == PlayerState.DEAD:
 		velocity.x = 0
 		velocity.y += get_gravity().y * delta
 		move_and_slide()
 		return
 
-	# Lê direções
+	# entradas
 	direction = Input.get_axis("ui_left", "ui_right")
+	var holding_run := Input.is_action_pressed("ui_run")
 
-	# ESTADOS
+	# máquina de estados
 	match state:
 		PlayerState.IDLE:
-			idle_state(delta)
-
+			idle_state(delta, holding_run)
 		PlayerState.WALK:
-			walk_state(delta)
-
+			walk_state(delta, holding_run)
 		PlayerState.RUN:
-			run_state(delta)
-
+			run_state(delta, holding_run)
 		PlayerState.JUMP:
-			jump_state(delta)
-
+			jump_state(delta, holding_run)
 		PlayerState.FALL:
-			fall_state(delta)
-
+			fall_state(delta, holding_run)
 		PlayerState.ATTACK:
-			attack_state(delta)
-
+			attack_state(delta, holding_run)
 		PlayerState.HURT:
 			hurt_state(delta)
-			
-		PlayerState.DEAD:
-			dead_state(delta)
 
+	# aplicar movimento final
 	move_and_slide()
 
-	# Morte por queda
-	if position.y >= 800:
+	# morte por queda (ajuste o 800 se precisar)
+	if position.y >= 800 and state != PlayerState.DEAD:
 		go_to_dead_state()
 
+# -------------------- Estados --------------------
 
-# ============================================================
-#   ESTADOS
-# ============================================================
-
-func go_to_idle_state():
+func go_to_idle_state() -> void:
 	state = PlayerState.IDLE
 	anim.play("idle")
 
-func idle_state(delta):
+func idle_state(delta: float, holding_run: bool) -> void:
 	apply_gravity(delta)
-	move_horizontal(delta)
+	ground_move(holding_run)
 
 	if direction != 0:
 		go_to_walk_state()
@@ -102,20 +89,19 @@ func idle_state(delta):
 		go_to_attack_state()
 		return
 
-
-func go_to_walk_state():
+func go_to_walk_state() -> void:
 	state = PlayerState.WALK
 	anim.play("walk")
 
-func walk_state(delta):
+func walk_state(delta: float, holding_run: bool) -> void:
 	apply_gravity(delta)
-	move_horizontal(delta)
+	ground_move(holding_run)
 
 	if direction == 0:
 		go_to_idle_state()
 		return
 
-	if Input.is_action_pressed("ui_run"):
+	if holding_run:
 		go_to_run_state()
 		return
 
@@ -131,16 +117,15 @@ func walk_state(delta):
 		go_to_attack_state()
 		return
 
-
-func go_to_run_state():
+func go_to_run_state() -> void:
 	state = PlayerState.RUN
 	anim.play("run")
 
-func run_state(delta):
+func run_state(delta: float, holding_run: bool) -> void:
 	apply_gravity(delta)
-	move_horizontal(delta, RUN_SPEED)
+	ground_move(holding_run)
 
-	if not Input.is_action_pressed("ui_run"):
+	if not holding_run:
 		go_to_walk_state()
 		return
 
@@ -160,60 +145,52 @@ func run_state(delta):
 		go_to_attack_state()
 		return
 
+# -------------------- Pulo --------------------
 
-# ============================================================
-#   PULO TURBO (correndo ele pula MUITO longe e rápido)
-# ============================================================
-
-func go_to_jump_state():
+func go_to_jump_state() -> void:
 	state = PlayerState.JUMP
 	anim.play("jump")
 
-	# Pulo vertical mais forte quando estiver correndo
-	if Input.is_action_pressed("ui_run"):
-		velocity.y = JUMP_VELOCITY * JUMP_VERTICAL_MULTIPLIER
+	var holding_run := Input.is_action_pressed("ui_run")
+	if holding_run:
+		velocity.y = JUMP_VELOCITY * 1.10
 	else:
 		velocity.y = JUMP_VELOCITY
 
-	# PULO HORIZONTAL TURBO (ao correr)
-	if Input.is_action_pressed("ui_run") and direction != 0:
-		velocity.x = direction * (RUN_SPEED * JUMP_HORIZONTAL_MULTIPLIER)
+	if direction != 0:
+		anim.flip_h = direction < 0
 
-
-func jump_state(delta):
+func jump_state(delta: float, holding_run: bool) -> void:
 	apply_gravity(delta)
 
-	# ACELERAÇÃO NO AR (ao correr)
-	if Input.is_action_pressed("ui_run") and direction != 0:
-		velocity.x = move_toward(
-			velocity.x,
-			direction * (RUN_SPEED * JUMP_HORIZONTAL_MULTIPLIER),
-			AIR_ACCEL * delta
-		)
+	var target_speed := RUN_SPEED if holding_run else SPEED
+
+	if direction != 0:
+		var target := direction * target_speed
+		velocity.x = move_toward(velocity.x, target, (AIR_ACCEL * 0.6) * delta)
+		anim.flip_h = direction < 0
 	else:
-		move_horizontal(delta)
+		velocity.x = move_toward(velocity.x, 0, (AIR_ACCEL * 0.6) * delta)
 
 	if velocity.y > 0:
 		go_to_fall_state()
 		return
 
-
-func go_to_fall_state():
+func go_to_fall_state() -> void:
 	state = PlayerState.FALL
-	anim.play("jump")
+	anim.play("fall")
 
-func fall_state(delta):
+func fall_state(delta: float, holding_run: bool) -> void:
 	apply_gravity(delta)
 
-	# Aceleração turbo também na queda
-	if Input.is_action_pressed("ui_run") and direction != 0:
-		velocity.x = move_toward(
-			velocity.x,
-			direction * (RUN_SPEED * JUMP_HORIZONTAL_MULTIPLIER),
-			AIR_ACCEL * delta
-		)
+	var target_speed := RUN_SPEED if holding_run else SPEED
+
+	if direction != 0:
+		var target := direction * target_speed
+		velocity.x = move_toward(velocity.x, target, (AIR_ACCEL * 0.6) * delta)
+		anim.flip_h = direction < 0
 	else:
-		move_horizontal(delta)
+		velocity.x = move_toward(velocity.x, 0, (AIR_ACCEL * 0.6) * delta)
 
 	if is_on_floor():
 		if direction == 0:
@@ -222,81 +199,93 @@ func fall_state(delta):
 			go_to_walk_state()
 		return
 
+# -------------------- Ataque --------------------
 
-# ============================================================
-#   ATAQUE
-# ============================================================
-
-func go_to_attack_state():
+func go_to_attack_state() -> void:
 	if state == PlayerState.ATTACK:
 		return
-
 	state = PlayerState.ATTACK
 	is_attacking = true
 	anim.play("attack1")
 	attack_timeout()
 
-func attack_state(delta):
+func attack_state(delta: float, holding_run: bool) -> void:
 	apply_gravity(delta)
-	move_horizontal(delta)
+	# mantém controle horizontal leve
+	ground_move(holding_run)
 
 func attack_timeout() -> void:
+	# duração do ataque (ajuste conforme sua animação)
 	await get_tree().create_timer(0.35).timeout
-	is_attacking = false
-	go_to_idle_state()
 
+	if is_on_floor():
+		if direction == 0:
+			go_to_idle_state()
+		else:
+			go_to_walk_state()
+	else:
+		go_to_fall_state()
+	
+	
 
-# ============================================================
-#   DANO / MORTE
-# ============================================================
+# -------------------- Dano / Morte --------------------
 
-func go_to_hurt_state():
-	if state == PlayerState.HURT:
+func go_to_hurt_state() -> void:
+	if state == PlayerState.HURT or state == PlayerState.DEAD:
 		return
-
 	state = PlayerState.HURT
 	anim.play("hurt")
 	velocity = Vector2.ZERO
 
-	await get_tree().create_timer(1.0).timeout
+	# tempo de invencibilidade / animação de hit
+	await get_tree().create_timer(0.8).timeout
+
+	# depois do hurt, vai para morto
 	go_to_dead_state()
 
+func hurt_state(_delta: float) -> void:
+	apply_gravity(_delta)
 
-func hurt_state(delta):
-	apply_gravity(delta)
+func go_to_dead_state() -> void:
+	if state == PlayerState.DEAD:
+		return
 
-
-func go_to_dead_state():
 	state = PlayerState.DEAD
 	anim.play("dead")
 	velocity = Vector2.ZERO
 
-	
-func dead_state(delta):
-	pass
+	# espera animação de morte
+	await get_tree().create_timer(DEATH_WAIT).timeout
 
+	# perde 1 vida (se ainda tiver)
+	if Global.vidas > 0:
+		Global.perder_vida()
 
-# ============================================================
-#   MOVIMENTO / GRAVIDADE
-# ============================================================
+	# se ainda sobrou vida, reinicia fase
+	if Global.vidas > 0:
+		if get_tree().current_scene and get_tree().current_scene.has_method("reiniciar_fase"):
+			get_tree().current_scene.reiniciar_fase()
+		else:
+			get_tree().reload_current_scene()
+	else:
+		# sem vidas: some o player, HUD mostra GAME OVER
+		queue_free()
 
-func move_horizontal(delta, custom_speed := SPEED):
+# -------------------- Física / util --------------------
+
+func ground_move(holding_run: bool) -> void:
+	var speed := RUN_SPEED if holding_run else SPEED
 	if direction != 0:
-		velocity.x = direction * custom_speed
+		velocity.x = direction * speed
 		anim.flip_h = direction < 0
 	else:
 		velocity.x = 0
 
-func apply_gravity(delta):
+func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
+# -------------------- Câmera --------------------
 
-func _on_hit_box_area_entered(area: Area2D) -> void:
-	if velocity.y > 0:
-		#inimigo morre
-		area.get_parent().take_damage()
-		go_to_jump_state()
-	else:
-		#player morre
-		go_to_dead_state()
+func seguir_camera(camera):
+	remote.remote_path = camera.get_path()
