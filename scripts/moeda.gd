@@ -16,7 +16,7 @@ func _on_body_entered(body: Node2D) -> void:
 	$anim.play("coletar")
 	$colisao.call_deferred("queue_free")
 
-	Global.moedas += moeda
+	Global.adicionar_moeda(moeda)
 	Global.moedas_coletadas[id_moeda] = true
 
 func _on_anim_animation_finished() -> void:
