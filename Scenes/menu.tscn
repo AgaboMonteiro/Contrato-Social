@@ -1,0 +1,85 @@
+[gd_scene load_steps=2 format=3 uid="uid://emgcjuna8w0i"]
+
+[ext_resource type="Script" uid="uid://dtgdty8kwhoty" path="res://scripts/menu.gd" id="1_1rerr"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1rerr")
+
+[node name="título" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CONTRATO SOCIAL BRASILEIRO"
+horizontal_alignment = 1
+
+[node name="btn_jogar" type="Button" parent="."]
+layout_mode = 0
+offset_left = 281.0
+offset_top = 98.0
+offset_right = 339.0
+offset_bottom = 129.0
+text = "JOGAR"
+
+[node name="btn_como_jogar" type="Button" parent="."]
+layout_mode = 0
+offset_left = 255.0
+offset_top = 136.0
+offset_right = 368.0
+offset_bottom = 167.0
+text = "COMO JOGAR"
+
+[node name="btn_sair" type="Button" parent="."]
+layout_mode = 0
+offset_left = 251.0
+offset_top = 174.0
+offset_right = 368.0
+offset_bottom = 205.0
+text = "SAIR DO JOGO"
+
+[node name="PainelComoJogar" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="texto explicando" type="Label" parent="PainelComoJogar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -185.0
+offset_top = 30.0
+offset_right = 157.0
+offset_bottom = 157.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Setas / A e D: andar
+Shift: correr
+Espaço/UP/W: pular
+Para eliminar inimigos, pule na cabeça deles
+Pegue moedas para ganhar vidas."
+
+[node name="btn_voltar" type="Button" parent="PainelComoJogar"]
+layout_mode = 1
+offset_right = 54.0
+offset_bottom = 31.0
+text = "< voltar"
+
+[connection signal="pressed" from="btn_jogar" to="." method="_on_btn_jogar_pressed"]
+[connection signal="pressed" from="btn_como_jogar" to="." method="_on_btn_como_jogar_pressed"]
+[connection signal="pressed" from="btn_sair" to="." method="_on_btn_sair_pressed"]
+[connection signal="pressed" from="PainelComoJogar/btn_voltar" to="." method="_on_btn_voltar_pressed"]
