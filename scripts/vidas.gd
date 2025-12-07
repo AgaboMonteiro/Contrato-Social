@@ -3,7 +3,6 @@ extends Control
 @onready var contador_moeda: Label = $"../control/container/moedas_container/contador_moeda"
 @onready var contador_vida:  Label = $vida_container/vida/anim/contador_vida
 @onready var game_over_label: Label = $game_over_label
-
    # crie esse Label na cena
 
 func _ready() -> void:
@@ -17,6 +16,7 @@ func _process(delta: float) -> void:
 	# quando chegar em 0 vidas, mostra "GAME OVER"
 	if Global.vidas <= 0 and game_over_label:
 		game_over_label.visible = true
+		
 
 func _atualizar_hud() -> void:
 	if contador_moeda:

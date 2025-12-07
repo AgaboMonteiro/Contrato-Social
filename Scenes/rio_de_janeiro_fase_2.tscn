@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://b5t3q6tmemdt1"]
+[gd_scene load_steps=27 format=4 uid="uid://b5t3q6tmemdt1"]
 
 [ext_resource type="PackedScene" uid="uid://djjghqafkpe3y" path="res://entities/player.tscn" id="1_gfx1h"]
 [ext_resource type="Script" uid="uid://ihgfu718ix5q" path="res://scripts/rio_de_janeiro_fase_2.gd" id="1_m78lw"]
@@ -6520,6 +6520,9 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_23k7a")
 sources/2 = SubResource("TileSetAtlasSource_gy7j7")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xr7us"]
+size = Vector2(20, 212)
+
 [node name="Rio_de_Janeiro" type="Node2D"]
 script = ExtResource("1_m78lw")
 
@@ -6544,7 +6547,7 @@ tile_set = SubResource("TileSet_gy7j7")
 motion_scale = Vector2(0, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Back"]
-position = Vector2(100, 14)
+position = Vector2(-8, 0)
 scale = Vector2(0.31068, 0.42891)
 texture = ExtResource("7_6f20d")
 centered = false
@@ -6642,5 +6645,11 @@ position = Vector2(3766.93, -613.876)
 
 [node name="inimigo10" parent="." instance=ExtResource("14_xr7us")]
 position = Vector2(4107, -801)
+
+[node name="ParedeEsquerda" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedeEsquerda"]
+position = Vector2(-17, 211)
+shape = SubResource("RectangleShape2D_xr7us")
 
 [connection signal="timeout" from="reiniciar_jogo" to="." method="_on_reiniciar_jogo_timeout"]

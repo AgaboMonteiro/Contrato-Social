@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ce62erea8ta06"
+path="res://.godot/imported/Preso no Sistema.ogg-477485fd35a4913579480460bfc46d73.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Preso no Sistema.ogg"
+dest_files=["res://.godot/imported/Preso no Sistema.ogg-477485fd35a4913579480460bfc46d73.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

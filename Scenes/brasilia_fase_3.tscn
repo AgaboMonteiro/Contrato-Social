@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://bhs25dd54d8bn"]
+[gd_scene load_steps=18 format=4 uid="uid://bhs25dd54d8bn"]
 
 [ext_resource type="Texture2D" uid="uid://yj82lko5efkx" path="res://Assets/04 - Brasilia/GandalfHardcore City Tiles/Stones.png" id="1_bqygv"]
 [ext_resource type="Script" uid="uid://dlrmygqbi86b6" path="res://scripts/brasilia_fase_3.gd" id="1_xybix"]
@@ -750,6 +750,9 @@ texture = ExtResource("2_b5qej")
 [sub_resource type="TileSet" id="TileSet_q7p3i"]
 sources/0 = SubResource("TileSetAtlasSource_aw87i")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_osu56"]
+size = Vector2(20, 212)
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_xybix")
 
@@ -762,7 +765,7 @@ tile_map_data = PackedByteArray("AAANAAsAAAAMAAIAAAANAAwAAAAMAAMAAAAOAAsAAAANAAI
 tile_set = SubResource("TileSet_q7p3i")
 
 [node name="player" parent="." instance=ExtResource("3_xybix")]
-position = Vector2(18.6286, 184.564)
+position = Vector2(26.5281, 139.719)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -854,5 +857,11 @@ position = Vector2(590, 241)
 
 [node name="inimigo5" parent="." instance=ExtResource("7_e721n")]
 position = Vector2(1414, 213)
+
+[node name="ParedeEsquerda" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedeEsquerda"]
+position = Vector2(-8, 169)
+shape = SubResource("RectangleShape2D_osu56")
 
 [connection signal="timeout" from="reiniciar_jogo" to="." method="_on_reiniciar_jogo_timeout"]
