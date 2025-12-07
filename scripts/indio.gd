@@ -12,14 +12,15 @@ enum FazendeiroState{
 
 
 const SPEED = 50.0
+const DEATH_WAIT := 1.0   # tempo da morte (igual player, se quiser)
 
 var status : FazendeiroState
 var direction = 1
 
 func _ready() -> void:
 	go_to_walk_state()
-
-
+	add_to_group("inimigos")
+	# ... resto do seu código (walk, etc)
 
 func _physics_process(delta: float) -> void:
 
@@ -49,8 +50,21 @@ func walk_state(_delta):
 	if not ground_detector.is_colliding():
 		scale.x *= -1
 		direction *= -1
-		
-		
-	
-func dead_state(_delta):
-	pass
+
+func go_to_dead_state() -> void:
+	if status == FazendeiroState.dead:
+		return
+
+	status = FazendeiroState.dead
+	anim.play("dead")
+	velocity = Vector2.ZERO
+
+	# espera a animação de morte / tempo de morte
+	await get_tree().create_timer(DEATH_WAIT).timeout
+
+	# depois de morto, some (ou faz outra coisa se quiser)
+	queue_free()
+
+func dead_state(delta: float) -> void:
+	# só aplica gravidade enquanto está morto
+	velocity.y += get_gravity().y * delta

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://bhs25dd54d8bn"]
+[gd_scene load_steps=17 format=4 uid="uid://bhs25dd54d8bn"]
 
 [ext_resource type="Texture2D" uid="uid://yj82lko5efkx" path="res://Assets/04 - Brasilia/GandalfHardcore City Tiles/Stones.png" id="1_bqygv"]
 [ext_resource type="Script" uid="uid://dlrmygqbi86b6" path="res://scripts/brasilia_fase_3.gd" id="1_xybix"]
@@ -6,12 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://djjghqafkpe3y" path="res://entities/player.tscn" id="3_xybix"]
 [ext_resource type="Texture2D" uid="uid://dkuakfqqxllwb" path="res://Assets/04 - Brasilia/background brasilia.jpg" id="4_ae6nc"]
 [ext_resource type="PackedScene" uid="uid://boa5vh1f0omdk" path="res://entities/HUD.tscn" id="5_b5qej"]
-[ext_resource type="PackedScene" uid="uid://by0pkmuw1pl54" path="res://entities/politico_comum.tscn" id="7_4eodo"]
-[ext_resource type="PackedScene" uid="uid://ctaaa88rt0v2o" path="res://entities/politico_L.tscn" id="7_ae6nc"]
-[ext_resource type="PackedScene" uid="uid://dbbwerev3c1d0" path="res://entities/politico_x.tscn" id="9_cqx4s"]
-[ext_resource type="Script" uid="uid://bbocihsjmyhq5" path="res://scripts/politico_x.gd" id="10_vutku"]
-[ext_resource type="PackedScene" uid="uid://nowhgqcmxphg" path="res://entities/politico_b.tscn" id="11_vutku"]
-[ext_resource type="Script" uid="uid://dyak4vt3aovg5" path="res://scripts/politico_b.gd" id="12_osu56"]
+[ext_resource type="PackedScene" uid="uid://hud2h60mwpss" path="res://entities/politico.tscn" id="7_e721n"]
+[ext_resource type="PackedScene" uid="uid://drglia5374mq7" path="res://entities/politicoA.tscn" id="9_cqx4s"]
+[ext_resource type="PackedScene" uid="uid://uqrx3xkg012i" path="res://entities/politicoC.tscn" id="10_osu56"]
+[ext_resource type="PackedScene" uid="uid://dg51pciilguxl" path="res://entities/politicoB.tscn" id="10_vutku"]
 [ext_resource type="PackedScene" uid="uid://gutsujo4i1yw" path="res://entities/moeda.tscn" id="13_ruhpm"]
 [ext_resource type="PackedScene" uid="uid://biq88bly7jvqs" path="res://entities/portal_3.tscn" id="14_w7m5b"]
 
@@ -764,7 +762,7 @@ tile_map_data = PackedByteArray("AAANAAsAAAAMAAIAAAANAAwAAAAMAAMAAAAOAAsAAAANAAI
 tile_set = SubResource("TileSet_q7p3i")
 
 [node name="player" parent="." instance=ExtResource("3_xybix")]
-position = Vector2(11.0055, 186.689)
+position = Vector2(18.6286, 184.564)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -787,38 +785,6 @@ limit_bottom = 360
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
-
-[node name="politico" parent="." instance=ExtResource("7_4eodo")]
-position = Vector2(390, 247)
-
-[node name="politico2" parent="." instance=ExtResource("7_4eodo")]
-position = Vector2(2025, 231)
-
-[node name="politico3" parent="." instance=ExtResource("7_4eodo")]
-position = Vector2(4716, 294)
-
-[node name="politico_L" parent="." instance=ExtResource("7_ae6nc")]
-position = Vector2(7031, 292)
-
-[node name="politico_x" parent="." instance=ExtResource("9_cqx4s")]
-position = Vector2(1122.82, 234.458)
-script = ExtResource("10_vutku")
-
-[node name="politico_x3" parent="." instance=ExtResource("9_cqx4s")]
-position = Vector2(5854, 248)
-script = ExtResource("10_vutku")
-
-[node name="politico_x2" parent="." instance=ExtResource("9_cqx4s")]
-position = Vector2(3379, 152)
-script = ExtResource("10_vutku")
-
-[node name="politico_b" parent="." instance=ExtResource("11_vutku")]
-position = Vector2(2591.27, 270.033)
-script = ExtResource("12_osu56")
-
-[node name="politico_b2" parent="." instance=ExtResource("11_vutku")]
-position = Vector2(3974, 270)
-script = ExtResource("12_osu56")
 
 [node name="moeda" parent="." instance=ExtResource("13_ruhpm")]
 position = Vector2(340, 229)
@@ -852,5 +818,41 @@ position = Vector2(7131, 314)
 
 [node name="portal_3" parent="." instance=ExtResource("14_w7m5b")]
 position = Vector2(7237, 271)
+
+[node name="inimigo2" parent="." instance=ExtResource("9_cqx4s")]
+position = Vector2(1064, 240)
+
+[node name="inimigo6" parent="." instance=ExtResource("9_cqx4s")]
+position = Vector2(2577, 278)
+
+[node name="inimigo4" parent="." instance=ExtResource("10_osu56")]
+position = Vector2(6305, 279)
+
+[node name="inimigo8" parent="." instance=ExtResource("10_osu56")]
+position = Vector2(3958, 279)
+
+[node name="inimigo9" parent="." instance=ExtResource("10_osu56")]
+position = Vector2(4406, 265)
+
+[node name="inimigo10" parent="." instance=ExtResource("10_osu56")]
+position = Vector2(4725, 297)
+
+[node name="inimigo11" parent="." instance=ExtResource("10_osu56")]
+position = Vector2(6000.41, 260.178)
+
+[node name="inimigo12" parent="." instance=ExtResource("10_osu56")]
+position = Vector2(7027.63, 278.185)
+
+[node name="inimigo3" parent="." instance=ExtResource("10_vutku")]
+position = Vector2(1845, 215)
+
+[node name="inimigo7" parent="." instance=ExtResource("10_vutku")]
+position = Vector2(3295, 168)
+
+[node name="inimigo" parent="." instance=ExtResource("7_e721n")]
+position = Vector2(590, 241)
+
+[node name="inimigo5" parent="." instance=ExtResource("7_e721n")]
+position = Vector2(1414, 213)
 
 [connection signal="timeout" from="reiniciar_jogo" to="." method="_on_reiniciar_jogo_timeout"]

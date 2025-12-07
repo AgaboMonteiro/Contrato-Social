@@ -13,5 +13,9 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "player":
+		# Faz o player quicar pra cima
 		body.velocity.y = body.JUMP_VELOCITY
-		owner.queue_free()
+		
+		# Em vez de sumir, manda o inimigo morrer com animação
+		if owner.has_method("go_to_dead_state"):
+			owner.go_to_dead_state()

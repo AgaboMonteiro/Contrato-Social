@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://b5t3q6tmemdt1"]
+[gd_scene load_steps=26 format=4 uid="uid://b5t3q6tmemdt1"]
 
 [ext_resource type="PackedScene" uid="uid://djjghqafkpe3y" path="res://entities/player.tscn" id="1_gfx1h"]
 [ext_resource type="Script" uid="uid://ihgfu718ix5q" path="res://scripts/rio_de_janeiro_fase_2.gd" id="1_m78lw"]
@@ -10,10 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://57pyrfqehsa7" path="res://Assets/03 - Rio de Janeiro/Background.jpg" id="7_6f20d"]
 [ext_resource type="PackedScene" uid="uid://c3fdhq0oxmloh" path="res://entities/portal_2.tscn" id="8_icq42"]
 [ext_resource type="PackedScene" uid="uid://boa5vh1f0omdk" path="res://entities/HUD.tscn" id="10_qtc8w"]
-[ext_resource type="PackedScene" uid="uid://c4insfwa0oktq" path="res://entities/ladrão.tscn" id="11_m78lw"]
-[ext_resource type="Script" uid="uid://cr8rgtww417hc" path="res://scripts/ladrão.gd" id="12_qlhuj"]
-[ext_resource type="PackedScene" uid="uid://bydcoxgcca4x2" path="res://entities/morador_rua.tscn" id="13_xr7us"]
-[ext_resource type="Script" uid="uid://ceyna3anx4ywu" path="res://scripts/morador_rua.gd" id="14_adob7"]
+[ext_resource type="PackedScene" uid="uid://besuhgxwm5c4n" path="res://entities/ladrao.tscn" id="12_qlhuj"]
+[ext_resource type="PackedScene" uid="uid://dpc4yb6p8q0mc" path="res://entities/noia.tscn" id="13_h1row"]
+[ext_resource type="PackedScene" uid="uid://bp51c0x4vdv6c" path="res://entities/policial.tscn" id="14_xr7us"]
 [ext_resource type="PackedScene" uid="uid://gutsujo4i1yw" path="res://entities/moeda.tscn" id="15_adob7"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_gy7j7"]
@@ -6545,7 +6544,7 @@ tile_set = SubResource("TileSet_gy7j7")
 motion_scale = Vector2(0, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Back"]
-position = Vector2(1, 10)
+position = Vector2(100, 14)
 scale = Vector2(0.31068, 0.42891)
 texture = ExtResource("7_6f20d")
 centered = false
@@ -6566,34 +6565,6 @@ limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
-[node name="ladrão" parent="." instance=ExtResource("11_m78lw")]
-position = Vector2(837, -252)
-script = ExtResource("12_qlhuj")
-
-[node name="ladrão2" parent="." instance=ExtResource("11_m78lw")]
-position = Vector2(740, 106)
-script = ExtResource("12_qlhuj")
-
-[node name="morador_rua" parent="." instance=ExtResource("13_xr7us")]
-position = Vector2(1503, -214)
-script = ExtResource("14_adob7")
-
-[node name="morador_rua2" parent="." instance=ExtResource("13_xr7us")]
-position = Vector2(2491, -402)
-script = ExtResource("14_adob7")
-
-[node name="morador_rua3" parent="." instance=ExtResource("13_xr7us")]
-position = Vector2(3599, -515)
-script = ExtResource("14_adob7")
-
-[node name="morador_rua4" parent="." instance=ExtResource("13_xr7us")]
-position = Vector2(4667, -840)
-script = ExtResource("14_adob7")
-
-[node name="ladrão3" parent="." instance=ExtResource("11_m78lw")]
-position = Vector2(1849, -339)
-script = ExtResource("12_qlhuj")
-
 [node name="moeda" parent="." instance=ExtResource("15_adob7")]
 position = Vector2(567, 198)
 
@@ -6610,7 +6581,7 @@ position = Vector2(1034, -155)
 position = Vector2(907, -328)
 
 [node name="moeda6" parent="." instance=ExtResource("15_adob7")]
-position = Vector2(1324, -299)
+position = Vector2(1320, -321)
 
 [node name="moeda7" parent="." instance=ExtResource("15_adob7")]
 position = Vector2(1731, -248)
@@ -6619,7 +6590,7 @@ position = Vector2(1731, -248)
 position = Vector2(1888.6, -406.257)
 
 [node name="moeda9" parent="." instance=ExtResource("15_adob7")]
-position = Vector2(2471, -461)
+position = Vector2(1316, -435)
 
 [node name="moeda10" parent="." instance=ExtResource("15_adob7")]
 position = Vector2(2733.83, -430.09)
@@ -6628,15 +6599,48 @@ position = Vector2(2733.83, -430.09)
 position = Vector2(3152, -413)
 
 [node name="moeda12" parent="." instance=ExtResource("15_adob7")]
-position = Vector2(3634, -606)
+position = Vector2(3836, -592)
 
 [node name="moeda13" parent="." instance=ExtResource("15_adob7")]
 position = Vector2(3957, -718)
 
 [node name="moeda14" parent="." instance=ExtResource("15_adob7")]
-position = Vector2(4756, -878)
+position = Vector2(4819, -873)
 
 [node name="moeda15" parent="." instance=ExtResource("15_adob7")]
 position = Vector2(4333, -870)
+
+[node name="inimigo2" parent="." instance=ExtResource("12_qlhuj")]
+position = Vector2(848, -246)
+
+[node name="inimigo3" parent="." instance=ExtResource("12_qlhuj")]
+position = Vector2(1164, -332)
+
+[node name="inimigo4" parent="." instance=ExtResource("12_qlhuj")]
+position = Vector2(1305, -444)
+
+[node name="inimigo" parent="." instance=ExtResource("12_qlhuj")]
+position = Vector2(720, 106)
+
+[node name="inimigo5" parent="." instance=ExtResource("13_h1row")]
+position = Vector2(1708, -243)
+
+[node name="inimigo6" parent="." instance=ExtResource("13_h1row")]
+position = Vector2(2336, -395)
+
+[node name="inimigo7" parent="." instance=ExtResource("13_h1row")]
+position = Vector2(3067, -396)
+
+[node name="inimigo11" parent="." instance=ExtResource("13_h1row")]
+position = Vector2(4815, -842)
+
+[node name="inimigo8" parent="." instance=ExtResource("14_xr7us")]
+position = Vector2(3454, -437)
+
+[node name="inimigo9" parent="." instance=ExtResource("14_xr7us")]
+position = Vector2(3766.93, -613.876)
+
+[node name="inimigo10" parent="." instance=ExtResource("14_xr7us")]
+position = Vector2(4107, -801)
 
 [connection signal="timeout" from="reiniciar_jogo" to="." method="_on_reiniciar_jogo_timeout"]
