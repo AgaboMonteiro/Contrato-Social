@@ -9,6 +9,7 @@ enum FazendeiroState{
 @onready var hitbox: Area2D = $hitbox
 @onready var walk_detector: RayCast2D = $WalkDetector   # <- detector de parede
 @onready var ground_detector: RayCast2D = $GroundDetector
+@onready var body_collision: CollisionShape2D = $CollisionShape2D  # <- colisão do corpo
 
 
 const SPEED = 50.0
@@ -20,7 +21,6 @@ var direction = 1
 func _ready() -> void:
 	go_to_walk_state()
 	add_to_group("inimigos")
-	# ... resto do seu código (walk, etc)
 
 func _physics_process(delta: float) -> void:
 
@@ -58,6 +58,15 @@ func go_to_dead_state() -> void:
 	status = FazendeiroState.dead
 	anim.play("dead")
 	velocity = Vector2.ZERO
+
+	# 🔻 AQUI PARA DE COLIDIR 🔻
+	# desliga a colisão física do inimigo
+	body_collision.set_deferred("disabled", true)
+
+	# desliga a hitbox (para não dar mais dano no player)
+	hitbox.set_deferred("monitoring", false)
+	hitbox.set_deferred("monitorable", false)
+	# 🔺 ---------------------- 🔺
 
 	# espera a animação de morte / tempo de morte
 	await get_tree().create_timer(DEATH_WAIT).timeout
